@@ -7,6 +7,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #  更新安装依赖包和 php 核心拓展
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update && apk upgrade \
 && apk add \
+vim \
 bash \
 freetype-dev \
 libjpeg-turbo-dev \
