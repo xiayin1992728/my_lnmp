@@ -1,0 +1,8 @@
+version: '3.7'
+services:
+  my_alpine:
+    container_name: 'alpine_linux'
+    restart: always
+    volumes: 
+      - /d/learn_c:/var/learn_c
+    build: ./alpine

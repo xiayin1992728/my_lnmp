@@ -1,0 +1,49 @@
+version: '3.7'
+services:
+  mydb:
+    container_name: "mydb"
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - /mnt/d/server/mysql/data:/var/lib/mysql
+      - /mnt/d/server/mysql/etc:/etc/mysql
+      - /mnt/d/server/mysql/log:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    build: ./mysql
+
+  myredis:
+      container_name: "myredis"
+      restart: always
+      ports:
+        - "6379:6379"
+      volumes:
+        - /mnt/d/server/redis:/data
+      build: ./redis
+
+  myphp:
+      container_name: "myphp"
+      restart: always
+      ports:
+        - "9000:9000"
+      volumes:
+        - /mnt/d/code:/var/www/html
+        - /mnt/d/server/php/etc:/usr/local/etc
+      links:
+        - "mydb"
+        - "myredis"
+      build: ./php
+    
+  mynginx:
+    container_name: "mynginx"
+    restart: always
+    ports:
+      - "80:80"
+    links:
+      - "myphp"
+    volumes:
+      - /mnt/d/code:/usr/share/nginx/html
+      - /mnt/d/server/nginx:/etc/nginx
+      - /mnt/d/server/logs/nginx.logs:/var/log/nginx
+    build: ./nginx                             
