@@ -19,7 +19,8 @@ supervisor \
 && docker-php-ext-install zip \
 && docker-php-ext-install pdo_mysql \
 && docker-php-ext-install opcache \
-&& docker-php-ext-install mysqli
+&& docker-php-ext-install mysqli \
+&& apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev libzip-dev
 
 #源码包不存在的扩展用 pecl 装
 RUN apk add --no-cache $PHPIZE_DEPS \ 
@@ -33,6 +34,7 @@ RUN cd / \
 && php composer-setup.php \
 && php -r "unlink('composer-setup.php');" \
 && chmod a+x composer.phar \
-&& mv ./composer.phar /usr/local/bin/composer
+&& mv ./composer.phar /usr/local/bin/composer \
+&& composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 WORKDIR /data
