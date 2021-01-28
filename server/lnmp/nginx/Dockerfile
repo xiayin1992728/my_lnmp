@@ -1,4 +1,4 @@
-FROM nginx:1.19.6-alpine
+FROM nginx:stable-alpine
 MAINTAINER goozp "1084581212@qq.com"
 
 ENV TZ=Asia/Shanghai
