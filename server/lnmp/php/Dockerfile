@@ -19,8 +19,7 @@ supervisor \
 && docker-php-ext-install zip \
 && docker-php-ext-install pdo_mysql \
 && docker-php-ext-install opcache \
-&& docker-php-ext-install mysqli \
-&& apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev libzip-dev
+&& docker-php-ext-install mysqli
 
 #源码包不存在的扩展用 pecl 装
 RUN apk add --no-cache $PHPIZE_DEPS \ 
